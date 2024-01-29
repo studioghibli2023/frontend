@@ -24,7 +24,7 @@ h4 {
     width: 2px !important;
     background-image: linear-gradient(180deg, oklch(63.32% 0.24 31.68) 0%, oklch(69.02% 0.277 332.77) 50%, oklch(53.18% 0.28 296.97) 100%);
     opacity: 0.8;
-    height: 400px
+    height: 65vh
   }
 
  button {

@@ -1,0 +1,7 @@
+.main-border {
+    margin: 10;
+    padding: 10;
+    border: 1px solid black;
+    box-sizing: border-box;
+    height: 90vh;
+}
