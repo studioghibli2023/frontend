@@ -1,27 +1,8 @@
-# Use official Node.js image as the base image
-FROM node:alpine AS builder
-
-# Set the working directory
+FROM node:16-alpine AS build
 WORKDIR /app
-
-# Stage 1: Build the Angular application
-FROM node:20.11.0 AS builder
-
-WORKDIR /app
-
-COPY package.json package-lock.json ./
+COPY package*.json ./
 RUN npm install
-
 COPY . .
-RUN npm run build --configuration production
-
-# Stage 2: Serve the Angular application
-FROM nginx:alpine
-
-COPY --from=builder /app/dist/* /usr/share/nginx/html/
-
-# Expose port 80 (default for nginx)
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
-
+RUN npm run build
+EXPOSE 4200
+CMD ["npm", "start"]
