@@ -1,11 +1,28 @@
-# Use an official Nginx image as the base image
-FROM nginx
+# Stage 1: Compile and Build angular codebase
 
-# Copy the built Angular app to the appropriate location in the container
-COPY dist/my-angular-app /usr/share/nginx/html
+# Use official node image as the base image
+FROM node:latest as build
 
-# Expose port 80 for the Nginx server
+# Set the working directory
+WORKDIR /usr/local/app
+
+# Add the source code to app
+COPY ./ /usr/local/app/
+
+# Install all the dependencies
+RUN npm install
+
+# Generate the build of the application
+RUN npm run build
+
+
+# Stage 2: Serve app with nginx server
+
+# Use official nginx image as the base image
+FROM nginx:latest
+
+# Copy the build output to replace the default nginx contents.
+COPY --from=build /usr/local/app/dist/sample-angular-app /usr/share/nginx/html
+
+# Expose port 80
 EXPOSE 80
-
-# Start the Nginx server when the container starts
-CMD ["nginx", "-g", "daemon off;"]
