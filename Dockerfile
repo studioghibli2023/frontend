@@ -13,7 +13,7 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 COPY . .
-RUN npm run build --prod
+RUN npm run build --configuration production
 
 # Stage 2: Serve the Angular application
 FROM nginx:alpine
