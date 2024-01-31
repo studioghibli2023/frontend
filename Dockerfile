@@ -4,27 +4,24 @@ FROM node:alpine AS builder
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Stage 1: Build the Angular application
+FROM node:14 AS builder
 
-# Install dependencies
+WORKDIR /app
+
+COPY package.json package-lock.json ./
 RUN npm install
 
-# Copy the rest of the application
 COPY . .
-
-# Build the Angular app for production
 RUN npm run build --prod
 
-# Use Nginx as the base image for serving Angular app
+# Stage 2: Serve the Angular application
 FROM nginx:alpine
 
-# Copy the built Angular app from the previous stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist/* /usr/share/nginx/html/
 
-# Expose port 80
+# Expose port 80 (default for nginx)
 EXPOSE 80
 
-# Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
 
