@@ -1,21 +1,11 @@
-# Use the official Node Alpine image as a base
-FROM node:alpine
+# Use an official Nginx image as the base image
+FROM nginx
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
+# Copy the built Angular app to the appropriate location in the container
+COPY dist/my-angular-app /usr/share/nginx/html
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+# Expose port 80 for the Nginx server
+EXPOSE 80
 
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application code
-COPY . .
-
-# Expose port 4200 to the outside world
-EXPOSE 4200
-
-# Command to run the Angular development server
-CMD ["npm", "start"]
-
+# Start the Nginx server when the container starts
+CMD ["nginx", "-g", "daemon off;"]
