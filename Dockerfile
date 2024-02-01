@@ -1,17 +1,17 @@
-# Use an nginx base image
-FROM nginx:alpine
+FROM node:14-alpine
 
-# Set the working directory in the container
-WORKDIR /usr/share/nginx/html
+RUN mkdir -p /usr/src/app
 
-# Remove default nginx static assets
-RUN rm -rf ./*
+WORKDIR /usr/src/app
 
-# Copy built Angular app files to the container
-COPY dist/* .
+COPY package*.json ./
 
-# Expose port 4200
+RUN npm ci
+
+COPY . .
+
+RUN npm run build --prod
+
 EXPOSE 4200
 
-# Command to run the Angular app using nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "start"]
