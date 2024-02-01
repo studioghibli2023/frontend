@@ -1,17 +1,9 @@
-FROM node:14-alpine
 
-RUN mkdir -p /usr/src/app
-
-WORKDIR /usr/src/app
-
-COPY package*.json ./
-
+FROM node:16-alpine
+WORKDIR /app
+RUN npm install -g @angular/cli@13
+COPY package.json package-lock.json ./
 RUN npm ci
-
 COPY . .
-
-RUN npm run build --prod
-
 EXPOSE 4200
-
-CMD ["npm", "start"]
+CMD ["ng", "serve", "--host", "0.0.0.0"]
