@@ -7,4 +7,4 @@ RUN npm run build
 # Serve Application using Nginx Server
 FROM nginx:alpine
 COPY --from=build /app/dist/tbbt/ /usr/share/nginx/html
-EXPOSE 4200
+EXPOSE 80
