@@ -1,10 +1,10 @@
-# stage 1
-FROM node:latest as node
+FROM node:16-alpine AS build
 WORKDIR /app
+
 COPY . .
 RUN npm install
-RUN npm run build --prod
-
-# stage 2
+RUN npm run build
+# Serve Application using Nginx Server
 FROM nginx:alpine
-COPY --from=node /app/dist/tbbt /usr/share/nginx/html
+COPY --from=build /app/dist/tbbt/ /usr/share/nginx/html
+EXPOSE 80
