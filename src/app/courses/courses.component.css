@@ -1,0 +1,39 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    position: relative;
+}
+
+.navbar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 30px;
+    right: 30px;
+    height: 1px;
+    background-image: linear-gradient(to right, oklch(63.32% 0.24 31.68) 0%, oklch(69.02% 0.277 332.77) 50%, oklch(53.18% 0.28 296.97) 100%);
+}
+
+.logo {
+    background-image: linear-gradient(90deg, oklch(63.32% 0.24 31.68) 0%, oklch(69.02% 0.277 332.77) 50%, oklch(53.18% 0.28 296.97) 100%);
+    left: 40px;
+    font-size: 2rem;
+}
+
+
+.auth-links {
+    display: flex;
+    align-items: center;
+}
+
+.register, .login {
+    color: #333;
+}
+
+.register {
+    margin-right: 35px;
+}
+
+
