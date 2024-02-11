@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +11,7 @@ import { CustomerProfileComponent } from './customer-profile/customer-profile.co
 import { AdminDashComponent } from './admin-dash/admin-dash.component';
 import { AuthService } from './services/auth.service';
 import { CoursesComponent } from './courses/courses.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -17,13 +19,15 @@ import { CoursesComponent } from './courses/courses.component';
     HomeComponent,
     CustomerProfileComponent,
     AdminDashComponent,
-    CoursesComponent
+    CoursesComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    DialogModule
+    DialogModule,
+    HttpClientModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

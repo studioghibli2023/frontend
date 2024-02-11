@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -6,20 +7,20 @@ import { Component } from '@angular/core';
   templateUrl: './customer-profile.component.html',
   styleUrl: './customer-profile.component.css'
 })
-export class CustomerProfileComponent {
+export class CustomerProfileComponent implements OnInit {
 
-  courses = [
-    {
-      "name": "course 1",
-      "price": "100",
-      "status": "full"
+  user: any
 
-    },
-    {
-      "name": "course 2",
-      "price": "599",
-      "status": "available"
-    }
-  ]
+  constructor(private router: Router) {
+    const navigation = this.router.getCurrentNavigation();
+    console.log("USER : " + this.user)
+    this.user = navigation?.extras.state?.['user'];
+  }
+
+  ngOnInit(): void {
+      if(!this.user){
+        console.log('error!')
+      }
+  }
 
 }

@@ -1,0 +1,39 @@
+<app-navigation></app-navigation>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div *ngIf="user" class="card border-warning">
+                <div class="card-header border-warning text-dark d-flex align-items-center">
+                    <h4 class="mb-0"><i class="fa-solid fa-user-large"></i> {{ user.name }}</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <label for="userName" class="col-sm-3 col-form-label">Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" readonly class="form-control-plaintext" id="userName" value="{{ user.name }}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="userEmail" class="col-sm-3 col-form-label">Email</label>
+                        <div class="col-sm-9">
+                            <input type="email" readonly class="form-control-plaintext" id="userEmail" value="{{ user.email }}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="userEmail" class="col-sm-3 col-form-label">Course Registered</label>
+                        <div class="col-sm-9">
+                            <input type="email" readonly class="form-control-plaintext" id="userEmail" value="{{ user.email }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+          
+      
+
+
+
+

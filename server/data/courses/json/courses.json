@@ -1,0 +1,9 @@
+{
+    "courses": [
+        {
+            "name": "Course 1 for Beginners",
+            "details": "blah blah",
+            "price": "199"
+        }
+    ]
+}
