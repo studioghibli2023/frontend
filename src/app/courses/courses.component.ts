@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
-import { UserService } from '../services/user.service';
-import { CourseService } from '../services/course.service';
+
 
 declare var bootstrap: any;
 
@@ -13,8 +11,11 @@ declare var bootstrap: any;
 })
 export class CoursesComponent {
 
-  private modalInstance: any;
   isLoggedIn: boolean = false;
+  currentUsername: string | null = null;
+
+  showModal: boolean = false;
+  selectedCourse: any = null;
 
   courses = [
     {
@@ -44,21 +45,35 @@ export class CoursesComponent {
 
 
   ngOnInit(){
-
     this.authService.isLoggedIn$().subscribe(isLoggedIn => {
       this.isLoggedIn = isLoggedIn;
     })
 
-    //TESTING CALL TO API
-    /*this.userService.getAllUsers().subscribe(data => {
-      console.log("Got these users : " + JSON.stringify(data))
-    })
-    
-    this.courseService.getCourseList().subscribe(data => {
-      console.log("Got these courses : " + JSON.stringify(data))
-    })*/
-
+    this.authService.currentUsername$().subscribe(username => {
+      this.currentUsername = username;
+    });
   }
+
+  openModal(course: any): void {
+    if (this.isLoggedIn) {
+      this.selectedCourse = course;
+      this.showModal = true;
+    }
+  }
+
+
+  confirmSignup(): void {
+    console.log(`Signing up ${this.currentUsername} for ${this.selectedCourse.title}`);
+    // Implement your signup logic here
+    this.closeModal();
+  }
+
+
+  closeModal(): void {
+    this.showModal = false;
+  }
+
+
 
 
 
