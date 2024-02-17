@@ -14,29 +14,56 @@ declare var bootstrap: any;
 export class CoursesComponent {
 
   private modalInstance: any;
-  isLoggedIn = false;
+  isLoggedIn: boolean = false;
 
-  username: string = '';
-  password: string = '';
+  courses = [
+    {
+      title: 'Course 1',
+      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum.',
+      imageSrc: '../assets/studio4.webp',
+    },
+    {
+      title: 'Course 2',
+      text: 'Vivamus laoreet non mauris eget mattis. Vestibulum ante ipsum primis in faucibus orci.',
+      imageSrc: '../assets/studio3.webp',
+    },
+    {
+      title: 'Course 3',
+      text: 'Vivamus laoreet non mauris eget mattis. Vestibulum ante ipsum primis in faucibus orci.',
+      imageSrc: '../assets/studio2.webp',
+    },
+    {
+      title: 'Course 4',
+      text: 'Vivamus laoreet non mauris eget mattis. Vestibulum ante ipsum primis in faucibus orci.',
+      imageSrc: '../assets/studio1.webp',
+    }
+  ]
 
-  constructor (public authService : AuthService, public userService: UserService, public courseService: CourseService, private router: Router) {}
+
+  constructor (private authService : AuthService) {}
 
 
   ngOnInit(){
-    this.userService.getAllUsers().subscribe(data => {
+
+    this.authService.isLoggedIn$().subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn;
+    })
+
+    //TESTING CALL TO API
+    /*this.userService.getAllUsers().subscribe(data => {
       console.log("Got these users : " + JSON.stringify(data))
     })
     
     this.courseService.getCourseList().subscribe(data => {
       console.log("Got these courses : " + JSON.stringify(data))
-    })
+    })*/
 
   }
 
 
 
-  /*get buttonText(): string {
+  get buttonText(): string {
     return this.isLoggedIn ? 'Reserve Your Place' : 'Sign In to Reserve Your Place';
-  }*/
+  }
 
 }

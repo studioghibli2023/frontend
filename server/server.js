@@ -14,6 +14,12 @@ server.get('/users', (req, res, next) => {
 })
 
 
+server.post('/login', (req, res, next) => {
+    console.log("hitting the login endpoint with : " + JSON.stringify(req.body))
+
+})
+
+
 server.post('/register', (req, rest, next) => {
     console.log('hitting the register endpoint : ' + JSON.stringify(req.body))
 })

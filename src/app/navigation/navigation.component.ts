@@ -3,6 +3,7 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 declare var bootstrap: any;
 
@@ -11,23 +12,44 @@ declare var bootstrap: any;
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css'] 
 })
-export class NavigationComponent  {
+export class NavigationComponent implements OnInit  {
   
   private modalInstance: any;
  
+  //LOGIN
   username: string = '';
-
-  name: string = ''
-  email: string = '';
   password: string = '';
 
+  //REGISTRATION
+  regName: string = ''
+  email: string = '';
+  regPass: string = '';
+
   isLoggedIn : boolean = false;
-  currentUsername : string = '';
+  currentUsername: string | null = null;
+
+  private subscriptions: Subscription = new Subscription()
 
 
   constructor(public authService: AuthService, public userService: UserService, private router: Router) {}
   
+  @ViewChild('loginForm') loginForm!: NgForm;
   @ViewChild('registrationForm') registrationForm!: NgForm;
+
+  ngOnInit(): void {
+    this.subscriptions.add(
+      this.authService.isLoggedIn$().subscribe(isLoggedIn => {
+        this.isLoggedIn = isLoggedIn;
+      })
+    );
+
+    this.subscriptions.add(
+      this.authService.currentUsername$().subscribe(username => {
+        this.currentUsername = username;
+      })
+    );
+
+  }
 
   openLoginModal() {
     if (!this.modalInstance) {
@@ -59,10 +81,10 @@ export class NavigationComponent  {
   }
 
 
-  register(name : string, email : string, password : string) {
-    const user = {name: this.name, email : this.email, password: this.password}
+  register(regName : string, email : string, regPass : string) {
+    const user = {name: this.regName, email : this.email, password: this.regPass}
     console.log("USER - " + JSON.stringify(user))
-    this.userService.registerUser(name, email, password).subscribe({
+    this.userService.registerUser(regName, email, regPass).subscribe({
       next:(response => {
         console.log("User registered successfully")
       })
@@ -79,10 +101,19 @@ export class NavigationComponent  {
   }
 
 
-  login(): void {
+  clearFormAndCloseLoginModal() {
+    this.loginForm.resetForm();
+    const modalElement = document.getElementById('loginModal');
+    const modalInstance = bootstrap.Modal.getInstance(modalElement);
+    modalInstance.hide();
+  }
+
+
+  login(username: string, password: string): void {
     console.log('Attempting login with:', this.username, this.password);
     if (this.authService.login(this.username, this.password)) {
       console.log('Login successful!');
+      this.clearFormAndCloseLoginModal();
       this.router.navigate(['/customer']);
     } else {
       console.log('Login failed!');
@@ -91,8 +122,12 @@ export class NavigationComponent  {
   }
 
 
-  logout(){
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 
+  logout(): void {
+    this.authService.logout();
   }
 
 }

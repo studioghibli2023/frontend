@@ -12,59 +12,19 @@
 <div class="container mt-5">
     <p class="fs-5 text-center my-5">Online Movie Making Courses</p>
     <div class="row row-cols-1 row-cols-md-4 g-4">
-        <div class="col">
+        <div class="col" *ngFor="let course of courses">
             <div class="card shadow">
-                <img src="../assets/studio4.webp" class="card-img-top" alt="...">
+                <img img [src]="course.imageSrc" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-title">Course 1</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum.</p>
+                  <h5 class="card-title">{{ course.title }}</h5>
+                  <p class="card-text">{{ course.text }}</p>
                   <div class="d-grid">
-                    <!--<button class="btn btn-warning shadow" [disabled]="!isLoggedIn"> {{ buttonText }}</button>-->
-                  <button class="btn btn-warning shadow">Reserve Your Place</button>
+                    <button class="btn btn-warning shadow" [disabled]="!isLoggedIn"> {{ buttonText }}</button>
                   </div>
                 </div>
             </div>
         </div>
-        <div class="col">
-          <div class="card shadow">
-            <img src="../assets/studio3.webp" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Course 2</h5>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum.</p>
-              <div class="d-grid">
-                <!--<button class="btn btn-warning shadow" [disabled]="!isLoggedIn"> {{ buttonText }}</button>-->
-                <button class="btn btn-warning shadow">Reserve Your Place</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow">
-            <img src="../assets/studio2.webp" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Course 3</h5>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum.</p>
-              <div class="d-grid">
-                <!--<button class="btn btn-warning shadow" [disabled]="!isLoggedIn"> {{ buttonText }}</button>-->
-                <button class="btn btn-warning shadow">Reserve Your Place</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow">
-            <img src="../assets/studio1.webp" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Course 4</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum.</p>
-                <div class="d-grid">
-                  <!--<button class="btn btn-warning shadow" [disabled]="!isLoggedIn"> {{ buttonText }}</button>-->
-                  <button class="btn btn-warning shadow">Reserve Your Place</button>
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
 </div>
 
 

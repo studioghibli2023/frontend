@@ -17,6 +17,8 @@ export class UserService {
     return this.http.get('http://localhost:8080/app/user/all');
   }
 
+  
+
   registerUser(name: string, email: string, password: string): Observable<any> {
 
     let params = new HttpParams()
