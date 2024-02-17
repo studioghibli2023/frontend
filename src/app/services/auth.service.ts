@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { tap, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,19 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   private isUserLoggedIn(): boolean {
-    const loggedIn = localStorage.getItem('isLoggedIn');
-    return loggedIn === 'true';
+    return localStorage.getItem('isLoggedIn') === 'true';
+  }
+
+  public updateLoginStatus(isLoggedIn: boolean, username?: string): void {
+    this.isLoggedIn.next(isLoggedIn);
+    if (username) {
+      this.currentUsername.next(username);
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('currentUsername', username);
+    } else {
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('currentUsername');
+    }
   }
 
   login(username: string, password: string): boolean {
@@ -37,6 +49,8 @@ export class AuthService {
       return false;
     }
 
+    
+
 
     //API Call when implemented
     /*let userParams = new HttpParams()
@@ -47,6 +61,21 @@ export class AuthService {
 
 
   }
+
+
+  registerUser(name: string, email: string, password: string): Observable<any> {
+    const mockResponse = {success: true}
+    let params = new HttpParams().set('name', name).set('email', email).set('password', password);
+    //return this.http.post<any>(`${this.url}app/user/save`, null, { params }).pipe(
+      return of(mockResponse).pipe(
+      tap((response: any) => {
+        if (response && response.success) {
+          this.updateLoginStatus(true, name);
+        }
+      })
+    );
+  }
+  
 
 
   logout(): void {

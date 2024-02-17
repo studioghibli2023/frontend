@@ -41,6 +41,9 @@
                           <label for="floatingPassword">Password</label>
                       </div>
                   </div>
+                  <div *ngIf="loginError" class="alert alert-danger mt-3">
+                    Wrong username or password.
+                  </div>
                   <div class="d-grid gap-5">
                       <button type="button shadow" class="btn btn-warning mx-5">Sign In</button>
                   </div> 

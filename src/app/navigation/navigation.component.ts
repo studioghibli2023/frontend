@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { UserService } from '../services/user.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -27,11 +26,12 @@ export class NavigationComponent implements OnInit  {
 
   isLoggedIn : boolean = false;
   currentUsername: string | null = null;
+  loginError: boolean = false;
 
   private subscriptions: Subscription = new Subscription()
 
 
-  constructor(public authService: AuthService, public userService: UserService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
   
   @ViewChild('loginForm') loginForm!: NgForm;
   @ViewChild('registrationForm') registrationForm!: NgForm;
@@ -39,12 +39,14 @@ export class NavigationComponent implements OnInit  {
   ngOnInit(): void {
     this.subscriptions.add(
       this.authService.isLoggedIn$().subscribe(isLoggedIn => {
+        console.log('IsLoggedIn updated:', isLoggedIn);
         this.isLoggedIn = isLoggedIn;
       })
     );
 
     this.subscriptions.add(
       this.authService.currentUsername$().subscribe(username => {
+        console.log('CurrentUsername updated:', username);
         this.currentUsername = username;
       })
     );
@@ -84,7 +86,7 @@ export class NavigationComponent implements OnInit  {
   register(regName : string, email : string, regPass : string) {
     const user = {name: this.regName, email : this.email, password: this.regPass}
     console.log("USER - " + JSON.stringify(user))
-    this.userService.registerUser(regName, email, regPass).subscribe({
+    this.authService.registerUser(regName, email, regPass).subscribe({
       next:(response => {
         console.log("User registered successfully")
       })
@@ -110,14 +112,17 @@ export class NavigationComponent implements OnInit  {
 
 
   login(username: string, password: string): void {
+    this.loginError = false;
     console.log('Attempting login with:', this.username, this.password);
-    if (this.authService.login(this.username, this.password)) {
+    const success = this.authService.login(username, password);
+
+    if (success) {
       console.log('Login successful!');
-      this.clearFormAndCloseLoginModal();
       this.router.navigate(['/customer']);
+      this.clearFormAndCloseLoginModal();
     } else {
-      console.log('Login failed!');
-      // Show error message
+    console.log('Login failed!');
+    this.loginError = true;
     }
   }
 
