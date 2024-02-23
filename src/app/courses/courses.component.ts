@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-
+import { UserService } from '../services/user.service';
+import { CourseService } from '../services/course.service';
+import { Course } from '../models/course.model';
 
 declare var bootstrap: any;
 
@@ -41,7 +43,7 @@ export class CoursesComponent {
   ]
 
 
-  constructor (private authService : AuthService) {}
+  constructor (private authService : AuthService, private userService: UserService, private courseService: CourseService) {}
 
 
   ngOnInit(){
@@ -52,6 +54,16 @@ export class CoursesComponent {
     this.authService.currentUsername$().subscribe(username => {
       this.currentUsername = username;
     });
+
+    this.userService.getAllUsers().subscribe(data =>  {
+      console.log(JSON.stringify(data))
+    });
+
+    this.courseService.getCourseList().subscribe(data =>  {
+      console.log(JSON.stringify(data))
+    });
+
+    
   }
 
   openModal(course: any): void {
