@@ -1,8 +1,36 @@
-<p>admin-dash works!</p>
+<!-- <p>admin-dash works!</p> -->
+<div class="navbar">
+    <a href="/" class="logo"><span><i class="fas fa-film"></i></span> Studio Ghibli</a>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <a 
+        href="#" 
+        class="list-group-item clearfix" 
+        *ngFor="let course of myCourses">
+            <div class="pull-left">
+                <h4 class="list-group-item-heading">{{ course.name }}</h4>
+                <p class="list-group-item-text">{{ course.description }}</p>
+                <p class="list-group-item-text">{{ course.price }}</p>
+                <p class="list-group-item-text">{{ course.duration }}</p>
+                <hr>
+            </div>
+            <!-- <span class="pull-right">
+                <img 
+                    [src]="course.imagePath"
+                    alt="{{ course.name }}" 
+                    class="img-responsive" 
+                    style="max-height: 50px;">
+            </span> -->
+        </a>
+    </div>
+</div>
 
 
 
-<div class="col" *ngFor="let course of myCourses">
+
+
+<!-- <div class="col" *ngFor="let course of myCourses">
     {{ course.name }}
     {{ course.description }}
-</div>
+</div> -->

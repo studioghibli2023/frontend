@@ -25,7 +25,7 @@ export class UserService {
   getAllUsers(): Observable<any> {
     //return this.http.get('http://localhost:3000/users');
     //return this.http.get('http://localhost:8080/app/user/all');
-    return this.http.get('http://be-studio-ghibli-load-balancer-789928797.us-east-1.elb.amazonaws.com/app/user/all')
+    return this.http.get('http://BE-studio-ghibli-load-balancer-1620050399.us-east-1.elb.amazonaws.com/app/user/all')
   }
 
   

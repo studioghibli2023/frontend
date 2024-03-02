@@ -12,6 +12,6 @@ export class CourseService {
 
   getCourseList() : Observable<any> {
     //return this.http.get('http://localhost:3000/courses');
-    return this.http.get('http://be-studio-ghibli-load-balancer-789928797.us-east-1.elb.amazonaws.com:8080/app/course/all')
+    return this.http.get('http://BE-studio-ghibli-load-balancer-1620050399.us-east-1.elb.amazonaws.com/app/course/all')
   }
 }

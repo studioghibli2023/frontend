@@ -12,6 +12,7 @@ import { AdminDashComponent } from './admin-dash/admin-dash.component';
 import { AuthService } from './services/auth.service';
 import { CoursesComponent } from './courses/courses.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { UsersComponent } from './admin-dash/users/users.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NavigationComponent } from './navigation/navigation.component';
     CustomerProfileComponent,
     AdminDashComponent,
     CoursesComponent,
-    NavigationComponent
+    NavigationComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
