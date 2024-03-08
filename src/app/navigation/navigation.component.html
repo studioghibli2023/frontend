@@ -5,8 +5,8 @@
         <a href="#" (click)="openLoginModal(); $event.preventDefault()" class="login text-decoration-none"><span> <i class="fa-solid fa-right-to-bracket"></i></span> Login</a>
     </div>
     <div class="auth-links" *ngIf="isLoggedIn">
-        <span>Welcome, {{ currentUsername }}</span>
-        <a href="#" (click)="logout(); $event.preventDefault()">Logout</a>
+        <span>Welcome, {{ currentUsername }}&nbsp;&nbsp; | &nbsp; &nbsp;</span>
+        <a href="#" (click)="logout(); $event.preventDefault()"> Logout</a>
     </div>
 </div>
 

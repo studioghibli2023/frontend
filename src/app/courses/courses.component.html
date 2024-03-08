@@ -7,10 +7,10 @@
             <div class="card shadow">
                 <img img [src]="course.image" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-title">{{ course.name }}</h5>
-                  <p class="card-text">{{ course.description }}</p>
-                  <p class="card-text">{{ course.price }}</p>
-                  <p class="card-text">{{ course.duration }}</p>
+                  <h5 class="card-title text-center">{{ course.name }}</h5>
+                  <p class="card-text text-center">{{ course.description }}</p>
+                  <p class="card-text text-center">Price: €{{ course.price }}</p>
+                  <p class="card-tex text-center">Duration (months): {{ course.duration }}</p>
                   <div class="d-grid">
                     <!--<button class="btn btn-warning shadow" [disabled]="!isLoggedIn" (click)="openModal(course)"> {{ buttonText }}</button>-->
                     <button class="btn btn-warning shadow" (click)="openModal(course)">Sign Up For This Course</button>
