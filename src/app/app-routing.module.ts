@@ -9,7 +9,7 @@ import { CoursesComponent } from './courses/courses.component';
 
 const routes: Routes = [
   { path: '', component: CoursesComponent },
-  { path: 'customer', /*canActivate: [AuthGuard], */ component: CustomerProfileComponent },
+  { path: 'customer', canActivate: [AuthGuard], component: CustomerProfileComponent },
   { path: 'admin', component: AdminDashComponent }
 ];
 

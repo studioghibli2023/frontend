@@ -5,12 +5,15 @@
     <div class="row row-cols-1 row-cols-md-4 g-4">
         <div class="col" *ngFor="let course of courses">
             <div class="card shadow">
-                <img img [src]="course.imageSrc" class="card-img-top" alt="...">
+                <img img [src]="course.image" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-title">{{ course.title }}</h5>
-                  <p class="card-text">{{ course.text }}</p>
+                  <h5 class="card-title">{{ course.name }}</h5>
+                  <p class="card-text">{{ course.description }}</p>
+                  <p class="card-text">{{ course.price }}</p>
+                  <p class="card-text">{{ course.duration }}</p>
                   <div class="d-grid">
-                    <button class="btn btn-warning shadow" [disabled]="!isLoggedIn" (click)="openModal(course)"> {{ buttonText }}</button>
+                    <!--<button class="btn btn-warning shadow" [disabled]="!isLoggedIn" (click)="openModal(course)"> {{ buttonText }}</button>-->
+                    <button class="btn btn-warning shadow" (click)="openModal(course)">Sign Up For This Course</button>
                   </div>
                 </div>
             </div>
@@ -18,25 +21,72 @@
     </div>
 </div>
 
-
-<!-- Modal -->
 <div class="modal fade" [class.show]="showModal" tabindex="-1" role="dialog" style="display: {{showModal ? 'block' : 'none'}};">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Confirm Signup</h5>
+        <h5 class="modal-title" id="registrationModalLabel">Enter Your Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+            <form (ngSubmit)="registerForCourse(name, email, password)" #registrationForm="ngForm">
+                <h4 class="mt-3 mb-5">Please register your details to sign up for <strong>{{selectedCourse?.name}}</strong></h4>
+                <div class="row mt-3 mb-3">
+                  <div class="form-floating my-3">
+                      <input type="email" [(ngModel)]="name" name="name" class="form-control" id="floatingInput" placeholder="name@example.com">
+                      <label for="floatingInput">Name</label>
+                  </div>
+              </div>
+                <div class="row mt-3 mb-3">
+                  <div class="form-floating my-3">
+                    <input type="email" [(ngModel)]="email" name="email" class="form-control" id="floatingEmail" placeholder="name@example.com" required email #emailField="ngModel">
+                    <label for="floatingEmail">Email address</label>
+                    <div *ngIf="emailField.errors?.['required'] && (emailField.dirty || emailField.touched)" class="alert alert-danger">
+                        Email is required.
+                    </div>
+                    <div *ngIf="emailField.errors?.['email'] && (emailField.dirty || emailField.touched)" class="alert alert-danger">
+                        Please enter a valid email address.
+                    </div>
+                </div>
+                </div>
+                <div class="row mt-3 mb-3">
+                    <div class="form-floating">
+                        <input type="password" [(ngModel)]="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                </div>
+                <div class="d-grid gap-5">
+                    <button type="submit" class="btn btn-warning mx-5">Register</button>
+                </div> 
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<!--<div class="modal fade" [class.show]="showModal" tabindex="-1" role="dialog" style="display: {{showModal ? 'block' : 'none'}};">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Complete Registration</h5>
         <button type="button" class="close" (click)="closeModal()">
           <span>&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <h2>Hello, {{ currentUsername }}</h2>
-        <p>Are you sure you want to sign up for <strong>{{selectedCourse?.title}}</strong>?</p>
+        <p>Please register your details to sign up for <strong>{{selectedCourse?.name}}</strong>?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-        <button type="button" class="btn btn-primary" (click)="confirmSignup()">Confirm</button>
+        <button type="button" class="btn btn-primary" (click)="confirmSignup(selectedCourse?.id)">Register</button>
       </div>
     </div>
   </div>
-</div>
+</div>-->
