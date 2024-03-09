@@ -30,7 +30,8 @@ export class UserService {
     const requestUrl = `${this.url}user/obtain?customerId=${userId}`;
     return this.http.get(requestUrl);
   }
-  
+
+
 
 
   //TO BE REMOVED...

@@ -96,6 +96,7 @@ export class CoursesComponent {
 
 
   registerForCourse(name : string, email : string, password : string) {
+
     const user = {name: name, email : email, password: password, course: this.selectedCourse.name}
     console.log("USER - " + JSON.stringify(user))
     this.authService.registerPlusCourse(name, email, password, this.selectedCourse.name).subscribe({
@@ -125,5 +126,11 @@ export class CoursesComponent {
   get buttonText(): string {
     return this.isLoggedIn ? 'Reserve Your Place' : 'Sign In to Reserve Your Place';
   }
+
+  currentUserIsRegisteredForAnyCourse(): boolean {
+    // Implement the actual logic here to determine if the user is already registered
+    // This could involve checking a property of the current user object, or making an API call
+    return false; // Placeholder return value
+}
 
 }
