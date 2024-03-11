@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { CourseService } from '../services/course.service';
@@ -16,34 +17,60 @@ export class CoursesComponent {
   isLoggedIn: boolean = false;
   currentUsername: string | null = null;
 
+  //REGISTRATION
+  name!: string;
+  email!: string
+  password!: string
+  course!: string
+
   showModal: boolean = false;
   selectedCourse: any = null;
+  courseId!: number;
+
+
+  userID!: string;
+  courseID!: string;
 
   courses = [
     {
-      title: 'Course 1',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum.',
-      imageSrc: '../assets/studio4.webp',
+      id: 1,
+      name: 'Course 1',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum.',
+      image: '../assets/studio4.webp',
+      price: '9.95',
+      duration: 1
     },
     {
-      title: 'Course 2',
-      text: 'Vivamus laoreet non mauris eget mattis. Vestibulum ante ipsum primis in faucibus orci.',
-      imageSrc: '../assets/studio3.webp',
+      id: 2,
+      name: 'Course 2',
+      description: 'Vivamus laoreet non mauris eget mattis. Vestibulum ante ipsum primis in faucibus orci.',
+      image: '../assets/studio3.webp',
+      price: '19.95',
+      duration: 2
     },
     {
-      title: 'Course 3',
-      text: 'Vivamus laoreet non mauris eget mattis. Vestibulum ante ipsum primis in faucibus orci.',
-      imageSrc: '../assets/studio2.webp',
+      id: 3,
+      name: 'Course 3',
+      description: 'Vivamus laoreet non mauris eget mattis. Vestibulum ante ipsum primis in faucibus orci.',
+      image: '../assets/studio2.webp',
+      price: '99.95',
+      duration: 3
     },
     {
-      title: 'Course 4',
-      text: 'Vivamus laoreet non mauris eget mattis. Vestibulum ante ipsum primis in faucibus orci.',
-      imageSrc: '../assets/studio1.webp',
+      id: 4,
+      name: 'Course 4',
+      description: 'Vivamus laoreet non mauris eget mattis. Vestibulum ante ipsum primis in faucibus orci.',
+      image: '../assets/studio1.webp',
+      price: '199.95',
+      duration: 5
     }
   ]
 
 
-  constructor (private authService : AuthService, private userService: UserService, private courseService: CourseService) {}
+  constructor (private authService : AuthService,
+      private userService: UserService,
+      private courseService: CourseService,
+      private router: Router) {}
 
 
   ngOnInit(){
@@ -67,16 +94,43 @@ export class CoursesComponent {
   }
 
   openModal(course: any): void {
-    if (this.isLoggedIn) {
       this.selectedCourse = course;
       this.showModal = true;
-    }
   }
 
 
-  confirmSignup(): void {
+  registerForCourse(name : string, email : string, password : string) {
+
+    const user = {name: name, email : email, password: password, course: this.selectedCourse.name}
+    console.log("USER - " + JSON.stringify(user))
+    this.authService.registerPlusCourse(name, email, password, this.selectedCourse.name).subscribe({
+      next:(response => {
+        console.log("User registered successfully")
+        this.closeModal();
+        this.router.navigate(['/customer'], {state: { user: user }});
+      })
+    })
+    console.log("Registering for : " + name, this.selectedCourse.name, email)
+  }
+
+
+  updateUserCourse(userid: string, courseid: string) {
+    //const customerId = '123'; 
+    //const courseId = 'abc';
+  
+    this.authService.updateUserCourse(userid, courseid).subscribe({
+      next: (response) => {
+        console.log('Update successful', response);
+      },
+      error: (error) => {
+        console.error('Update failed', error);
+      },
+    });
+  }
+
+  confirmSignup(courseId: number): void {
     console.log(`Signing up ${this.currentUsername} for ${this.selectedCourse.title}`);
-    // Implement your signup logic here
+    console.log('The course ID for this course is ' + courseId)
     this.closeModal();
   }
 
@@ -87,10 +141,14 @@ export class CoursesComponent {
 
 
 
-
-
   get buttonText(): string {
     return this.isLoggedIn ? 'Reserve Your Place' : 'Sign In to Reserve Your Place';
   }
+
+  currentUserIsRegisteredForAnyCourse(): boolean {
+    // Implement the actual logic here to determine if the user is already registered
+    // This could involve checking a property of the current user object, or making an API call
+    return false; // Placeholder return value
+}
 
 }
