@@ -27,6 +27,10 @@ export class CoursesComponent {
   selectedCourse: any = null;
   courseId!: number;
 
+
+  userID!: string;
+  courseID!: string;
+
   courses = [
     {
       id: 1,
@@ -109,6 +113,20 @@ export class CoursesComponent {
     console.log("Registering for : " + name, this.selectedCourse.name, email)
   }
 
+
+  updateUserCourse(userid: string, courseid: string) {
+    //const customerId = '123'; 
+    //const courseId = 'abc';
+  
+    this.authService.updateUserCourse(userid, courseid).subscribe({
+      next: (response) => {
+        console.log('Update successful', response);
+      },
+      error: (error) => {
+        console.error('Update failed', error);
+      },
+    });
+  }
 
   confirmSignup(courseId: number): void {
     console.log(`Signing up ${this.currentUsername} for ${this.selectedCourse.title}`);
