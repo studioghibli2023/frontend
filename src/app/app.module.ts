@@ -14,6 +14,9 @@ import { CoursesComponent } from './courses/courses.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { UsersComponent } from './admin-dash/users/users.component';
 
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';  
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +32,8 @@ import { UsersComponent } from './admin-dash/users/users.component';
     AppRoutingModule,
     FormsModule,
     DialogModule,
-    HttpClientModule
+    HttpClientModule,
+    // NgbModule 
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

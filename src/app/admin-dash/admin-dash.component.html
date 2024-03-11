@@ -2,35 +2,76 @@
 <div class="navbar">
     <a href="/" class="logo"><span><i class="fas fa-film"></i></span> Studio Ghibli</a>
 </div>
-<div class="row">
-    <div class="col-xs-12">
-        <a 
-        href="#" 
-        class="list-group-item clearfix" 
-        *ngFor="let course of myCourses">
-            <div class="pull-left">
-                <h4 class="list-group-item-heading">{{ course.name }}</h4>
-                <p class="list-group-item-text">{{ course.description }}</p>
-                <p class="list-group-item-text">{{ course.price }}</p>
-                <p class="list-group-item-text">{{ course.duration }}</p>
-                <hr>
-            </div>
-            <!-- <span class="pull-right">
-                <img 
-                    [src]="course.imagePath"
-                    alt="{{ course.name }}" 
-                    class="img-responsive" 
-                    style="max-height: 50px;">
-            </span> -->
-        </a>
+
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="activeTab === 'Customer Profile'" (click)="selectTab('Customer Profile')">Customer Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="activeTab === 'Courses'" (click)="selectTab('Courses')">Courses</a>
+      </li>
+    </ul>
+       
+      <!-- Content Sections -->
+      <div *ngIf="activeTab === 'Customer Profile'">
+        <div class="row">
+          <div class="col-xs-12">
+              <a href="#"
+              class="list-group-item clearfix"
+              *ngFor="let customer of customers">
+              <div class="pull-left" >
+                  <h4 class="list-group-item-heading">Name: {{ customer.Name}}</h4>
+                  <p class="list-group-item-text">Email: {{ customer.email}}</p>
+
+                  <p class="list-group-item-text"> Course: {{ customer.coursid}}</p>    
+                  
+                  <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    <option selected *ngFor="let usercourse of courses">{{ usercourse.courseid }}</option>
+                    <option value="1"></option>
+                  </select>
+
+                  <button type="button" class="btn btn-primary">Update</button>
+                  
+                  
+                  
+                  <hr>    
+              </div>    
+              </a>
+          </div>
+        </div>
+      </div>
+ 
+      <div *ngIf="activeTab === 'Courses'">
+
+      <div class="row">
+        <div class="col-xs-12">
+            <a href="#"
+             class="list-group-item clearfix"
+              *ngFor="let course of courses">
+                <div class="pull-left" >
+                    <h4 class="list-group-item-heading">Title: {{ course.title}}</h4>
+                    <p class="list-group-item-text">Course Id: {{ course.courseid}}</p>
+                    <p class="list-group-item-text">Description: {{ course.description}}</p>
+                    <p class="list-group-item-text"> Duration: {{ course.durtation}} weeks</p>
+                    <p class="list-group-item-text"> Price €{{ course.price }} </p>            
+                </div>          
+                <span class="pull-right">
+                    <img 
+                    [src]="course.imageSrc" 
+                    alt="{{ course.title }}"
+                    class="img-responsive"
+                    style="max-height: 100px;">
+                </span>
+             </a>
+        </div>
     </div>
-</div>
+  </div>
+  
+  
+  <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+    <option selected *ngFor="let usercourse of courses">{{ usercourse.courseid }}</option>
+    <option value="1"></option>
+  </select>
 
 
 
-
-
-<!-- <div class="col" *ngFor="let course of myCourses">
-    {{ course.name }}
-    {{ course.description }}
-</div> -->
