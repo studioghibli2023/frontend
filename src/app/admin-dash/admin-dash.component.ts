@@ -10,21 +10,23 @@ import { AuthService } from '../services/auth.service';
 })
 export class AdminDashComponent implements OnInit {
 
-  customerId!: number
-  courseId!: number
+  selectedCourses: { [key: string]: string } = {};
   
   customers = [
     {
+      id: '1',
       Name: 'Joe Bloggs',
       email: 'jb@abc.com',
       coursid: "M001"
     },
     {
+      id: '2',
       Name: 'Mary Turner',
       email: 'mt@abc.com',
       coursid: "M002"
     },
     {
+      id: '3',
       Name: 'Dave Turner',
       email: 'dt@abc.com',
       coursid: "M004"
@@ -81,24 +83,27 @@ export class AdminDashComponent implements OnInit {
       this.myCourses = data
      } )
 
+     console.log("TEST :  " + JSON.stringify(this.courses))
+
    }
 
    activeTab: string = 'Customer Profile'; // Default tab
    selectTab(tabId: string): void {     this.activeTab = tabId;   }
 
 
-   updateUserCourse() {
+   updateCustomerCourse(customerId: string) {
+    const selectedCourseId = this.selectedCourses[customerId];
+    if (!selectedCourseId) {
+      alert('Please select a course first.');
+      return;
+    }
 
-    console.log(this.courseId)
+    console.log(`Updating customer ${customerId} to course ${selectedCourseId}`);
 
-    /*this.authService.updateUserCourse(this.customerId, this.courseId).subscribe({
-      next: (response) => {
-        console.log('Update successful', response);
-      },
-      error: (error) => {
-        console.error('Update failed', error);
-      },
-    });*/
+  }
+
+  onCourseSelected(courseId: string, customerId: string) {
+    this.selectedCourses[customerId] = courseId;
   }
 
 

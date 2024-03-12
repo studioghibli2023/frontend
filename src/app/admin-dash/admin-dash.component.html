@@ -3,6 +3,7 @@
     <a href="/" class="logo"><span><i class="fas fa-film"></i></span> Studio Ghibli</a>
 </div>
 
+<div class="container mt-5">
     <ul class="nav justify-content-end">
       <li class="nav-item">
         <a class="nav-link" [class.active]="activeTab === 'Customer Profile'" (click)="selectTab('Customer Profile')">Customer Profile</a>
@@ -16,27 +17,22 @@
       <div *ngIf="activeTab === 'Customer Profile'">
         <div class="row">
           <div class="col-xs-12">
-              <a href="#"
-              class="list-group-item clearfix"
-              *ngFor="let customer of customers">
+              <div class="list-group-item clearfix" *ngFor="let customer of customers">
               <div class="pull-left" >
                   <h4 class="list-group-item-heading">Name: {{ customer.Name}}</h4>
+                  <p class="list-group-item-text">Customer ID: {{customer.id}} </p>
                   <p class="list-group-item-text">Email: {{ customer.email}}</p>
-
                   <p class="list-group-item-text"> Course: {{ customer.coursid}}</p>    
-                  
-                  <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                    <option selected *ngFor="let usercourse of courses"[(ngModel)]="courseId">{{ usercourse.courseid }}</option>
-                    <option value="1"></option>
-                  </select>
-
-                  <button type="button" class="btn btn-primary" (click)="updateUserCourse()">Update</button>
-                  
-                  
-                  
+                  <div class="input-group">
+                    <select [(ngModel)]="selectedCourses[customer.id]" (ngModelChange)="onCourseSelected($event, customer.id)" class="form-select" aria-label="Example select with button addon">
+                      <option value="" disabled selected>Select an alternative course...</option>
+                      <option *ngFor="let course of courses" [value]="course.courseid">{{ course.courseid }}</option>
+                    </select>
+                    <button class="btn btn-warning" type="button" (click)="updateCustomerCourse(customer.id)">Update To This Course</button>
+                  </div>
                   <hr>    
               </div>    
-              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -45,9 +41,7 @@
 
       <div class="row">
         <div class="col-xs-12">
-            <a href="#"
-             class="list-group-item clearfix"
-              *ngFor="let course of courses">
+            <div class="list-group-item clearfix" *ngFor="let course of courses">
                 <div class="pull-left" >
                     <h4 class="list-group-item-heading">Title: {{ course.title}}</h4>
                     <p class="list-group-item-text">Course Id: {{ course.courseid}}</p>
@@ -62,16 +56,14 @@
                     class="img-responsive"
                     style="max-height: 100px;">
                 </span>
-             </a>
+              </div>
         </div>
     </div>
   </div>
   
   
-  <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-    <option selected *ngFor="let usercourse of courses">{{ usercourse.courseid }}</option>
-    <option value="1"></option>
-  </select>
+  
+  
 
 
-
+</div>
