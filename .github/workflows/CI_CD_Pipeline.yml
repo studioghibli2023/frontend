@@ -35,6 +35,7 @@ jobs:
         
   build_and_push:
     name: Checkout, Build, Tag, and Push to ECR
+    needs: sonarcloud
     runs-on: ubuntu-latest
     environment: production
     outputs:
