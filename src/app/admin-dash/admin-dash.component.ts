@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../services/course.service';
+import { AuthService } from '../services/auth.service';
+
 
 @Component({
   selector: 'app-admin-dash',
@@ -7,6 +9,9 @@ import { CourseService } from '../services/course.service';
   styleUrl: './admin-dash.component.css'
 })
 export class AdminDashComponent implements OnInit {
+
+  customerId!: number
+  courseId!: number
   
   customers = [
     {
@@ -68,7 +73,7 @@ export class AdminDashComponent implements OnInit {
 
   myCourses: any 
 
-  constructor(private anyName: CourseService){ }
+  constructor(private anyName: CourseService, private authService: AuthService){ }
 
   ngOnInit(){ 
     this.anyName.getCourseList().subscribe(data => { 
@@ -80,6 +85,21 @@ export class AdminDashComponent implements OnInit {
 
    activeTab: string = 'Customer Profile'; // Default tab
    selectTab(tabId: string): void {     this.activeTab = tabId;   }
+
+
+   updateUserCourse() {
+
+    console.log(this.courseId)
+
+    /*this.authService.updateUserCourse(this.customerId, this.courseId).subscribe({
+      next: (response) => {
+        console.log('Update successful', response);
+      },
+      error: (error) => {
+        console.error('Update failed', error);
+      },
+    });*/
+  }
 
 
 }

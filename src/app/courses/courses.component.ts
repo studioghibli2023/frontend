@@ -114,7 +114,7 @@ export class CoursesComponent {
   }
 
 
-  updateUserCourse(userid: string, courseid: string) {
+  /*updateUserCourse(userid: string, courseid: string) {
     //const customerId = '123'; 
     //const courseId = 'abc';
   
@@ -126,7 +126,7 @@ export class CoursesComponent {
         console.error('Update failed', error);
       },
     });
-  }
+  }*/
 
   confirmSignup(courseId: number): void {
     console.log(`Signing up ${this.currentUsername} for ${this.selectedCourse.title}`);

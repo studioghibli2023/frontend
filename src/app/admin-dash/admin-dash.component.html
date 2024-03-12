@@ -26,11 +26,11 @@
                   <p class="list-group-item-text"> Course: {{ customer.coursid}}</p>    
                   
                   <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                    <option selected *ngFor="let usercourse of courses">{{ usercourse.courseid }}</option>
+                    <option selected *ngFor="let usercourse of courses"[(ngModel)]="courseId">{{ usercourse.courseid }}</option>
                     <option value="1"></option>
                   </select>
 
-                  <button type="button" class="btn btn-primary">Update</button>
+                  <button type="button" class="btn btn-primary" (click)="updateUserCourse()">Update</button>
                   
                   
                   

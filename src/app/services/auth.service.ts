@@ -84,8 +84,8 @@ export class AuthService {
     );
   }
 
-  
-  updateUserCourse(customerId: string, courseId: string): Observable<any> {
+
+  updateUserCourse(customerId: number, courseId: number): Observable<any> {
     const url = `${this.url}user/save`
     const requestBody = { customerId, courseId };
     return this.http.post(url, requestBody);

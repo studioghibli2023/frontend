@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { DialogModule } from 'primeng/dialog';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -14,7 +12,6 @@ import { CoursesComponent } from './courses/courses.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { UsersComponent } from './admin-dash/users/users.component';
 
-// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';  
 
 
 @NgModule({
@@ -31,8 +28,7 @@ import { UsersComponent } from './admin-dash/users/users.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    DialogModule,
-    HttpClientModule,
+    HttpClientModule
     // NgbModule 
   ],
   providers: [AuthService],
