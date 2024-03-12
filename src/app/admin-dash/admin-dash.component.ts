@@ -93,7 +93,7 @@ export class AdminDashComponent implements OnInit {
    selectTab(tabId: string): void {     this.activeTab = tabId;   }
 
 
-   updateCustomerCourse(customerId: number) {
+   updateCustomerCourse(customerId: string) {
     const selectedCourseId = this.selectedCourses[customerId];
     if (!selectedCourseId) {
       alert('Please select a course first.');
