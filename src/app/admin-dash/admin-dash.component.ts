@@ -12,6 +12,8 @@ export class AdminDashComponent implements OnInit {
 
   selectedCourses: { [key: string]: string } = {};
   
+
+  //Added ID to each customer here to allow course to be assigned more easily
   customers = [
     {
       id: '1',
@@ -91,13 +93,14 @@ export class AdminDashComponent implements OnInit {
    selectTab(tabId: string): void {     this.activeTab = tabId;   }
 
 
-   updateCustomerCourse(customerId: string) {
+   updateCustomerCourse(customerId: number) {
     const selectedCourseId = this.selectedCourses[customerId];
     if (!selectedCourseId) {
       alert('Please select a course first.');
       return;
     }
 
+    //Just logging the update to the console for now. Will need to add a call to the endpoint here...
     console.log(`Updating customer ${customerId} to course ${selectedCourseId}`);
 
   }
