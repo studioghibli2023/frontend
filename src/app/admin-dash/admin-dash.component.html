@@ -21,11 +21,11 @@
               <div class="pull-left" >
                   <h4 class="list-group-item-heading">Name: {{ customer.Name}}</h4>
                   <p class="list-group-item-text">Email: {{ customer.email}}</p>
-                  <p class="list-group-item-text"> Course: {{ customer.coursid}}</p>    
+                  <p class="list-group-item-text">Current CourseID: {{ customer.course.id}}</p>    
                   <div class="input-group">
                     <select [(ngModel)]="selectedCourses[customer.id]" (ngModelChange)="onCourseSelected($event, customer.id)" class="form-select" aria-label="Example select with button addon">
                       <option value="" disabled selected>Select an alternative course...</option>
-                      <option *ngFor="let course of courses" [value]="course.courseid">{{ course.courseid }}</option>
+                      <option *ngFor="let course of courses" [value]="course.id">{{ course.id }}</option>
                     </select>
                     <button class="btn btn-warning" type="button" (click)="updateCustomerCourse(customer.id)">Update To This Course</button>
                   </div>

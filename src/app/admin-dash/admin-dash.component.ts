@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../services/course.service';
 import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class AdminDashComponent implements OnInit {
   
 
   //Added ID to each customer here to allow course to be assigned more easily
-  customers = [
+  /*customers = [
     {
       id: '1',
       Name: 'Joe Bloggs',
@@ -33,11 +34,11 @@ export class AdminDashComponent implements OnInit {
       email: 'dt@abc.com',
       coursid: "M004"
     }
-  ]
+  ]*/
 
 
 
-  courses = [
+  /*courses = [
     {
       title: 'Movie making in 3D',
       courseid: "M001",
@@ -70,38 +71,49 @@ export class AdminDashComponent implements OnInit {
       durtation: 12,
       imageSrc: 'https://static.vecteezy.com/system/resources/previews/003/562/476/original/film-industry-glyph-icon-vector.jpg',
     }
-  ]
+  ]*/
 
 
   
 
-  myCourses: any 
+  courses: any 
+  customers: any
 
-  constructor(private anyName: CourseService, private authService: AuthService){ }
+  constructor(private courseService: CourseService, private authService: AuthService, private userService: UserService){ }
 
   ngOnInit(){ 
-    this.anyName.getCourseList().subscribe(data => { 
-      console.log("DATA =  " + JSON.stringify(data))
-      this.myCourses = data
-     } )
+    this.userService.getAllUsers().subscribe(data =>  {
+      console.log(JSON.stringify(data))
+      this.customers = data
+    });
 
-     console.log("TEST :  " + JSON.stringify(this.courses))
+    this.courseService.getCourseList().subscribe(data =>  {
+      console.log(JSON.stringify(data))
+      this.courses = data
+    });
 
-   }
+  }
 
    activeTab: string = 'Customer Profile'; // Default tab
    selectTab(tabId: string): void {     this.activeTab = tabId;   }
 
 
-   updateCustomerCourse(customerId: string) {
+  updateCustomerCourse(customerId: string) {
     const selectedCourseId = this.selectedCourses[customerId];
     if (!selectedCourseId) {
       alert('Please select a course first.');
       return;
     }
 
-    //Just logging the update to the console for now. Will need to add a call to the endpoint here...
-    console.log(`Updating customer ${customerId} to course ${selectedCourseId}`);
+    this.courseService.updateCustomerCourse(customerId, selectedCourseId)
+    .subscribe({
+      next: (response) => {
+        console.log('Customer course updated successfully', response);
+      },
+      error: (error) => {
+        console.error('Error updating customer course', error);
+      }
+    });
 
   }
 
