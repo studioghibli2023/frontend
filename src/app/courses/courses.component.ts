@@ -99,18 +99,20 @@ export class CoursesComponent {
   }
 
 
-  registerForCourse(name : string, email : string, password : string) {
-
-    const user = {name: name, email : email, password: password, course: this.selectedCourse.name}
-    console.log("USER - " + JSON.stringify(user))
-    this.authService.registerPlusCourse(name, email, password, this.selectedCourse.name).subscribe({
-      next:(response => {
-        console.log("User registered successfully")
-        this.closeModal();
-        this.router.navigate(['/customer'], {state: { user: user }});
-      })
-    })
-    console.log("Registering for : " + name, this.selectedCourse.name, email)
+  registerForCourse(name: string, email: string, password: string) {
+    this.authService.registerPlusCourse(name, email, password, this.selectedCourse.id)
+      .subscribe({
+        next: (response) => {
+          // Handle successful registration
+          console.log('Registration successful:', response);
+          // Optionally, redirect the user or clear the form
+        },
+        error: (error) => {
+          // Handle any errors
+          console.error('Registration failed:', error);
+        }
+      });
+    console.log("Registering for:", name, this.selectedCourse.id, email);
   }
 
 
