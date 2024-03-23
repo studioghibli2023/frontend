@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { CourseService } from '../services/course.service';
-import { Course } from '../models/course.model';
 
 declare var bootstrap: any;
 

@@ -106,7 +106,13 @@ export class NavigationComponent implements OnInit  {
               adminUser: data.adminUser
             }
             this.clearFormAndCloseLoginModal();
-            this.router.navigate(['/customer'], {state: { user: user }});
+
+            if(user['adminUser']) {
+              this.router.navigate(['/admin'], {state: { user: user }});
+            } else {
+              this.router.navigate(['/customer'], {state: { user: user }});
+            }
+
           },
           error: (error) => { 
             console.error('Error fetching user:', error);
