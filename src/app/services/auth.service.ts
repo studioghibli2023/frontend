@@ -12,7 +12,7 @@ export class AuthService {
   private currentUsername = new BehaviorSubject<string | null>(localStorage.getItem('currentUsername'));
 
   //url: string = 'http://BE-studio-ghibli-load-balancer-1666703620.us-east-1.elb.amazonaws.com/app/'
-  url: string = 'http://be-studio-ghibli-load-balancer-1609214022.us-east-1.elb.amazonaws.com/app/'
+  url: string = 'http://BE-studio-ghibli-load-balancer-965114466.us-east-1.elb.amazonaws.com'
 
 
   constructor(private http: HttpClient) { }
