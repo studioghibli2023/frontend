@@ -30,7 +30,9 @@ export class CoursesComponent {
   userID!: string;
   courseID!: string;
 
-  courses = [
+  courses: any = [];
+
+  /*courses = [
     {
       id: 1,
       name: 'Course 1',
@@ -63,7 +65,7 @@ export class CoursesComponent {
       price: '199.95',
       duration: 5
     }
-  ]
+  ]*/
 
 
   constructor (private authService : AuthService,
@@ -87,6 +89,7 @@ export class CoursesComponent {
 
     this.courseService.getCourseList().subscribe(data =>  {
       console.log(JSON.stringify(data))
+      this.courses = data;
     });
 
     
