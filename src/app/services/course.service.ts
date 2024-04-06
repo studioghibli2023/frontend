@@ -9,7 +9,7 @@ import { Observable, catchError, tap, throwError } from 'rxjs';
 export class CourseService {
 
   //private url = 'http://localhost:8080/';
-  url: string = 'http://BE-studio-ghibli-load-balancer-965114466.us-east-1.elb.amazonaws.com/app/'
+  url: string = 'http://FE-studio-ghibli-load-balancer-1493653976.us-east-1.elb.amazonaws.com/app/'
 
   constructor(private http: HttpClient) { }
 
