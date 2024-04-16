@@ -14,7 +14,7 @@ export class UserService {
   private isLoggedIn = new BehaviorSubject<boolean>(this.isUserLoggedIn());
   private currentUsername = new BehaviorSubject<string | null>(localStorage.getItem('currentUsername'));
   //url: string = 'http://localhost:8080/'
-  url: string = 'http://BE-studio-ghibli-load-balancer-824035271.us-east-1.elb.amazonaws.com/app/'
+  url: string = 'http://BE-studio-ghibli-load-balancer-1610989611.us-east-1.elb.amazonaws.com/app/'
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
